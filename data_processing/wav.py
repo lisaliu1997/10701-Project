@@ -10,4 +10,8 @@ import scipy.io.wavfile as siow
 # Normalization: squeeze all data points into [0, 1].
 # Want to get a normalized data array X of shape (num_examples, time_steps, n_features), 
 # where num_examples=?, time_steps=20, n_features=50.
+
+# Use picle to store data
+pickle.dump(X, open('X.p', 'wb'))
+
 siow.write(filename, rate, data)
