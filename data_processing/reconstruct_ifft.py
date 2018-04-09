@@ -4,7 +4,7 @@ import numpy as np
 def reconstruct(window):
 	result = []
 	if len(window) == 0: return result
-	block_len = window.shape[0]/2
+	block_len = window.shape[1]/2
 	window[:][:] *= 500000
 	for block in window:
 		real_part = block[0:block_len]
