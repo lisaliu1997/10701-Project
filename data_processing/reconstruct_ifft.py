@@ -4,6 +4,7 @@ import numpy as np
 def reconstruct(window):
 	result = []
 	if len(window) == 0: return result
+	window = np.array(window)
 	block_len = window.shape[1]/2
 	window[:][:] *= 500000
 	for block in window:
@@ -12,5 +13,7 @@ def reconstruct(window):
 		conv_block = real_part + 1.0j * imag_part
 		res = np.fft.ifft(conv_block)
 		result.append(res)
+	result = np.array(result)
+	result = np.real(result.flatten())
 	return result
 
