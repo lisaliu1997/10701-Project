@@ -8,7 +8,7 @@ from keras.layers import LSTM
 from keras.layers import Dense
 from keras.layers import Bidirectional
 import keras.backend as K 
-from data_processing import reconstruct_ifft
+from data_processing import new_reconstruct_ifft
 
 def correlation_coefficient_loss(y_true, y_pred):
     x = y_true
@@ -73,7 +73,7 @@ def build_train(X, Y, n_features, n_units):
 	train_model, inf_model = define_model(n_features, n_units)
 	adam = keras.optimizers.Adam(lr=0.1, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
 	train_model.compile(optimizer='adam', loss=hybrid_loss, metrics=[correlation_coefficient_loss,'mse'])
-	train_model.fit(X_flipped, Y, epochs=200, verbose=1, validation_split=0.1)
+	train_model.fit(X_flipped, Y, epochs=1, verbose=1, validation_split=0.1)
 
 	return inf_model
 
@@ -101,9 +101,9 @@ def predict_sequence(model, seed, n_steps, n_features, n_units):
 		if (t % 500 == 0):
 			print("t=%d" %t)
 
+	output = np.array(output)
 	# output is a 2D array
-	audio_data = reconstruct_ifft.reconstruct(output)
-	return audio_data
+	new_reconstruct_ifft.convert_back_wav("results/prediction.wav", output)
 
 
 # def predict_sequence(model, seed, n_steps, n_features):
