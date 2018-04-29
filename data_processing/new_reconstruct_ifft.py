@@ -1,5 +1,5 @@
 import numpy as np
-import write_wav
+import scipy.io.wavfile as wav
 
 def reconstruct(window):
 	result = []
@@ -23,4 +23,3 @@ def convert_back_wav(filename, window):
 	back_song = res_data * 32767.0
 	song_new = back_song.astype('int16')
 	wav.write(filename, 44100, song_new)
-
