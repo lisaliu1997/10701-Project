@@ -30,4 +30,3 @@ def all_mp3_to_wav(mp3_folder):
 		if (file.endswith('.mp3')):
 			mp3_to_wav_file(file, mp3_folder, wav_folder, tmp_mp3_folder)
 	return
-

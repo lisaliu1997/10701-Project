@@ -1,13 +1,12 @@
 import numpy as np
-import write_wav
+import scipy.io.wavfile as wav
 
-# takes in a 2D array and reconstruct to 1D by applying ifft 
 def reconstruct(window):
 	result = []
 	if len(window) == 0: return result
-	window = np.array(window)
 	block_len = window.shape[1]/2
-	window[:][:] *= 500000
+	window[:][:] *= 100
+	window[:][:] -= 50
 	for block in window:
 		real_part = block[0:block_len]
 		imag_part = block[block_len:]
@@ -18,11 +17,9 @@ def reconstruct(window):
 	result = np.real(result.flatten())
 	return result
 
-conv_arr = np.load('x_dir/a_x.npy')
-(a, b, c) = conv_arr.shape
-new_conv_arr = conv_arr.reshape(a*b, c)
-rate = 10000
-audio_data = reconstruct(new_conv_arr)
-siow.write(audio_data, 1000, data)
-write_wav.write2wav(new_conv_arr, rate, "results/1.wav")
-
+# output to filename: e.g. "out.wav"
+def convert_back_wav(filename, window):
+	res_data = reconstruct(window)
+	back_song = res_data * 32767.0
+	song_new = back_song.astype('int16')
+	wav.write(filename, 44100, song_new)
