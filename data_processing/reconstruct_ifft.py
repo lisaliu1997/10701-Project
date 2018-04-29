@@ -5,6 +5,7 @@ import write_wav
 def reconstruct(window):
 	result = []
 	if len(window) == 0: return result
+	window = np.array(window)
 	block_len = window.shape[1]/2
 	window[:][:] *= 500000
 	for block in window:
