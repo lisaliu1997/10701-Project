@@ -9,8 +9,8 @@ n_features = 100
 n_units = 256
 
 def get_data():
-	X = np.load("data/music_out_x.npy")
-	Y = np.load("data/music_out_y.npy") 
+	X = np.load("data/sctt.wav_x.npy")
+	Y = np.load("data/sctt.wav_y.npy") 
 	return X, Y
 
 def main():

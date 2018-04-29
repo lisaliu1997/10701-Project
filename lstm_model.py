@@ -98,7 +98,7 @@ def predict_sequence(model, seed, n_steps, n_features):
 
 	# output is a 2D array
 	audio_data = reconstruct_ifft.reconstruct(output)
- 	return audio_data
+	return audio_data
 
 # def predict_sequence(model, seed, state, n_steps, n_features):
 # 	print("Predict sequence of length %d" %n_steps)
