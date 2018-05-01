@@ -95,14 +95,38 @@ def main():
 	inf_model = model.build_train(X, Y, n_features, n_units)
 
 	# Make predictions and generate music
-	n_steps = 10
-	seed = random.choice(X)
-	print("seed")
-	print(seed[:, :5])
-	seed = np.reshape(seed, (1, seed.shape[0], seed.shape[1]))
-	model.predict_sequence(inf_model, seed, n_steps, n_features, n_units)
+	n_steps = 20
+	n_predictions = 5
+	for pi in range(n_predictions):
+		seed = random.choice(X)
+		print("seed")
+		print(seed[:, :5])
+		seed = np.reshape(seed, (1, seed.shape[0], seed.shape[1]))
+		model.predict_sequence(inf_model, seed, n_steps, n_features, "pred_%d"%pi)
 
 if __name__ == "__main__":
 	main()
+
+# def main():
+# 	# X, Y = get_data(1)
+# 	X, Y = get_data_frm_file()
+
+# 	# build and train model
+# 	inf_model = model.build_train(X, Y, n_features, n_units)
+
+# 	# Make predictions and generate music
+# 	rate = 44100
+# 	seconds = 0.4
+# 	n_steps = int(seconds * rate)
+# 	seed = random.choice(X)
+
+# 	files = os.listdir("%s/%s/"%(data_root, input_folder))
+# 	files = list(filter(lambda x: x.endswith("x.npy"), files))
+# 	test_file = random.choice(files)
+# 	test_x = np.load("%s/%s/%s"%(data_root, input_folder, test_file))
+# 	test_x = np.reshape(test_x, (1, test_x.shape[0]*test_x.shape[1], test_x.shape[2]))
+# 	seed = np.reshape(seed, (1, seed.shape[0], seed.shape[1]))
+# 	model.predict_sequence(inf_model, seed, n_steps, n_features, n_units)
+# 	# write_wav.write2wav(output, rate, "results/2-41.wav")
 
 
