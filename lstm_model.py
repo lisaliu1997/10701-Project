@@ -100,10 +100,13 @@ def build_train(X, Y, n_features, n_units):
 	model = new_lstm_model(n_features, n_units)
 	model.compile(loss='mse', optimizer='rmsprop')
 
-	history = model.fit(X, Y, epochs=0, verbose=1, validation_split=0.1)
+	history = model.fit(X, Y, epochs=100, verbose=1, validation_split=0.1)
 	print(history.history.keys())
 	for key in history.history.keys():
 		plot_metric(history, key)
+
+	model.save_weights('weights/my_model_weights.h5')
+	model.load_weights('weights/my_model_weights.h5')
 
 	return model
 
@@ -149,7 +152,7 @@ def build_train(X, Y, n_features, n_units):
 # 	# output is a 2D array
 # 	new_reconstruct_ifft.convert_back_wav("results/prediction.wav", output)
 
-def predict_sequence(model, seed, n_steps, n_features, n_units):
+def predict_sequence(model, seed, n_steps, n_features, filename):
 	n_steps = 10
 	print("Predict sequence of length %d" %n_steps)
 	# start of sequence input
@@ -176,7 +179,7 @@ def predict_sequence(model, seed, n_steps, n_features, n_units):
 	output = np.array(output)
 	print("prediction")
 	print(output[:100, :5])
-	new_reconstruct_ifft.convert_back_wav("results/lstm_fixed_pred.wav", output)
+	new_reconstruct_ifft.convert_back_wav("results/%s.wav"%filename, output)
 	# print("Outputs first")
 	# print(output[:10, :5])
 	# print("Outputs later")
